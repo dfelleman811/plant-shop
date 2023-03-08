@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PlantShop</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+
+
+  <body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-md">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="<%= root_path %>">
+          <%= image_tag "plant-logo", size: "30x24", alt: "logo", class: "d-inline-block align-text-top" %>
+          PlantShop
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="toggle navbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <div class="navbar-nav">
+            <%= link_to "Home", root_path, class: "nav-link" %>
+            <%= link_to "Shop Plants!", plants_path, class: "nav-link" %>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Render any flash messages -->
+    <% flash.each do |name, msg| %>
+      <div class="<%= name %>">
+        <%= msg %>
+      </div>
+    <% end %>
+  
+
+
+    <%= yield %>
+
+    <!-- Bootstrap CDN for JS Bundle so navbar toggles correctly -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  </body>
+</html>
