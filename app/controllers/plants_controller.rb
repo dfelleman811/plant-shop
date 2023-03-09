@@ -6,7 +6,6 @@ class PlantsController < ApplicationController
 
     def show 
         @plant = Plant.find(params[:id])
-        render json: @plant
     end
 
     def new 

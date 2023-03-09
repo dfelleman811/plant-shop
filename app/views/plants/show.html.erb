@@ -1,0 +1,14 @@
+<div class="container">
+
+<h1>plant details</h1>
+
+<div class="card">
+    <%= image_tag "plant-logo", alt: "plant image", class: "card-img-top" %>
+    <div class="card-body">
+        <h3 class="card-title"><%= @plant.common_name %></h3>
+        <p class="card-text"><%= @plant.scientific_name %></p>
+        <p class="card-text">Price: <%= @plant.price %></p>
+    </div>
+</div>
+
+</div>

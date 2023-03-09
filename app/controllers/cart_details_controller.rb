@@ -19,4 +19,15 @@ class CartDetailsController < ApplicationController
             render plants_path, status: :unprocessable_entity
         end
     end
+
+    def destroy 
+        @cart_detail = CartDetail.find(params[:id])
+        if @cart_detail.delete 
+            flash[:success] = "Successfully removed plant from cart."
+            redirect_to cart_path(@cart_detail.cart)
+        else
+            flash.now[:failure] = "whoops that didn't work. plant not removed"
+            render "carts#show", status: :unprocessable_entity
+        end
+    end
 end
