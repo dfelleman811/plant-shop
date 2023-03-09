@@ -13,8 +13,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # When a user is created - they should have a cart created in the carts table
   def create
     @user = User.new(sign_up_params)
-    cart = Cart.create(user_id: @user.id)
     if @user.save
+      cart = Cart.create(user_id: @user.id)
       flash[:success] = "Successfully registered."
       redirect_to new_user_session_path
     else

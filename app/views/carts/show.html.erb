@@ -1,10 +1,27 @@
-<div class="container">
+<div class="container mb-3">
+    <h1><%= current_user.first_name %>'s cart</h1>
 
-<% @cart.plants.each do |plant| %>
+    <div class="list-group">
+        <% @cart.plants.each do |plant| %>
+            <a href="plants/<%= plant.id %>" class="list-group-item">
+            <%= image_tag plant.image_url, size: "40x40" %>
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1"><%= plant.common_name %></h5>
+                    <small><%= plant.price %></small>
+                </div>
+                <p class="mb-1"><%= plant.scientific_name %></p>
+            </a>
+        <% end %>
+    </div>
 
-    <p><%= plant %></p>
-
-<% end %>
-
-
+<div class="container d-flex align-items-end">
+      <div class="d-flex flex-row">
+            <div class="col">
+                <h1>Total:</h1>
+            </div>
+            <div class="col">
+                <%= CartsController::total_cost(@cart) %>
+            </div>
+        </div>
+</div>
 </div>

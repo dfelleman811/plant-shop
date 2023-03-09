@@ -1,3 +1,22 @@
 class CartDetailsController < ApplicationController
 
+    before_action :authenticate_user! 
+
+    def create 
+        plant_to_add = Plant.find(params[:plant_id])
+
+        @cart = Cart.find_by(user_id: current_user.id)
+
+        @cart_detail = CartDetail.new
+        @cart_detail.cart = @cart 
+        @cart_detail.plant = plant_to_add
+
+        if @cart_detail.save
+            flash[:success] = "successfully added a plant to cart"
+            redirect_to cart_path(@cart)
+        else
+            flash[:failure] = "something went wrong"
+            render plants_path, status: :unprocessable_entity
+        end
+    end
 end
