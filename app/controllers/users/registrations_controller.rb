@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  # before_action :configure_sign_up_params, only: [:create]
+  before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -10,9 +10,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  # When a user is created - they should have a cart created in the carts table
+  def create
+    @user = User.new(sign_up_params)
+    cart = Cart.create(user_id: @user.id)
+    if @user.save
+      flash[:success] = "Successfully registered."
+      redirect_to new_user_session_path
+    else
+      flash.now[:failure] = "Something went wrong"
+      render :new, status: :unprocessable_entity
+    end
+  end
 
   # GET /resource/edit
   # def edit
@@ -41,9 +50,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
-  # end
+  def configure_sign_up_params
+    devise_parameter_sanitizer.permit(:sign_up) do |user_params|
+      user_params.permit(:email, :first_name, :last_name, :password, :password_confirmation)
+    end
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params

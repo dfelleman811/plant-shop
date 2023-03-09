@@ -1,3 +1,19 @@
 <div class="container">
     <h1>Plants!</h1>
+
+    <% @plants.each do |plant| %>
+
+    <div class="card">
+        <%= image_tag "plant-logo", alt: "plant-image", class: "card-img-top" %>
+        <div class="card-body">
+            <h4 class="card-title"><%= plant.common_name %></h4>
+            <p class="card-text"><%= plant.scientific_name %></p>
+            <p class="card-text"><%= plant.price %></p>
+            <%= link_to "Add to cart", cart_path(current_user.cart), class: "btn btn-warning" %>
+        </div>
+    </div>
+
+
+    <% end %>
+    
 </div>
